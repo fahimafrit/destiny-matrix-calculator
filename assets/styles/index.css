@@ -1,0 +1,796 @@
+input[type="date"] {
+  -webkit-appearance: none;
+}
+
+body {
+  background-color: #050215;
+  font-family: "GFS Didot";
+  color: #ffffff;
+  font-style: normal;
+  font-size: 1vw;
+}
+
+.container {
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main {
+  padding-left: 12.9em;
+  padding-right: 12.9em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  cursor: pointer;
+}
+
+li {
+  list-style-type: none;
+}
+
+.birthday-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter";
+  margin-bottom: 5em;
+}
+
+.birthday-container p {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.birthday-container__inputs-wrapper {
+  width: 83%;
+  margin-top: 3.1875em;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "input1 input2 button";
+  grid-gap: 1.875em;
+}
+
+.birthday-container__inputs-wrapper-comp {
+  width: 83%;
+  margin-top: 1.6875em;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 0.2fr 1fr;
+  grid-template-areas:
+    "label-partner1 label-partner2 0"
+    "input1 input2 button";
+  grid-column-gap: 1.875em;
+  grid-row-gap: 0.3em;
+}
+
+label {
+  padding-left: 1em;
+  font-size: 1em;
+}
+
+.label-partner1 {
+  grid-area: label-partner1;
+}
+
+.label-partner2 {
+  grid-area: label-partner2;
+}
+
+.errorOutput,
+.wrongDate {
+  padding-top: 5em;
+  font-size: 1.5em;
+}
+
+.input1-wrap,
+.input2-wrap {
+  position: relative;
+}
+
+.input1-wrap {
+  grid-area: input1;
+}
+
+#date,
+#name,
+#date_person1,
+#date_person2 {
+  width: 8.55em;
+  height: 1.25em;
+}
+
+.input2-wrap {
+  grid-area: input2;
+}
+
+input {
+  padding: 1.25em 3.25em 1.25em 3.25em;
+  font-family: "Inter";
+  font-size: 1.25em;
+  background-color: #050215;
+  color: #fff8db;
+  border: 1px #fff8db solid;
+  border-radius: 0.5em;
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+button {
+  padding: 1.25em 2em 1.25em 2em;
+  background-color: #fff8db;
+  font-family: "Inter";
+  font-size: 1.25em;
+  line-height: 125%;
+  text-transform: uppercase;
+  border-radius: 0.5em;
+  border: 1px #fff8db solid;
+  z-index: 1;
+  cursor: pointer;
+  color: #050215;
+}
+
+button:hover {
+  color: #fff8db;
+  background-color: #050215;
+  border: 1px #fff8db solid;
+}
+
+#get_the_answer,
+#createChart {
+  grid-area: button;
+  align-self: baseline;
+  cursor: pointer;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.chakra-table {
+  border-spacing: 0;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 50em;
+  display: block;
+}
+
+.chakra-table td:first-child,
+.chakra-table th:first-child {
+  border-left: 1px solid white;
+}
+
+.chakra-table tr:first-child th,
+.chakra-table tr:last-child td {
+  border-top: 1px solid white;
+}
+
+.chakra-table td,
+.chakra-table th {
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+}
+
+.chakra-name__bottom td:first {
+  border-bottom-left-radius: 10px;
+}
+
+.chakra-table__result {
+  margin-top: 1em;
+}
+
+.chakra-name {
+  width: 16.25em;
+  height: 3.0625em;
+  padding: 0.3125em;
+  text-align: left;
+}
+
+.chakra-name-left {
+  justify-content: center;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  padding-left: 2.9375em;
+}
+
+.chakra-name-flex {
+  display: flex;
+  align-items: baseline;
+}
+
+#circle-sahasrara:before {
+  font-family: "GFS Didot";
+  font-size: 1.375em;
+  content: "7";
+  width: 1.25em;
+  border-radius: calc(50%);
+  height: 1.25em;
+  display: inline-flex;
+  background: #b653f7;
+  justify-content: center;
+  margin-right: 1.25em;
+  box-shadow: 0 0 0.625em 0.625em #b653f7;
+}
+
+#circle-ajna:before {
+  font-family: "GFS Didot";
+  font-size: 1.375em;
+  content: "6";
+  width: 1.25em;
+  border-radius: calc(50%);
+  height: 1.25em;
+  display: inline-flex;
+  background: #3d54f5;
+  justify-content: center;
+  margin-right: 1.25em;
+  box-shadow: 0 0 0.625em 0.625em #3d54f5;
+}
+
+#circle-vishuddha:before {
+  font-family: "GFS Didot";
+  font-size: 1.375em;
+  content: "5";
+  width: 1.25em;
+  border-radius: calc(50%);
+  height: 1.25em;
+  display: inline-flex;
+  color: #000000;
+  background: #74e0f8;
+  justify-content: center;
+  margin-right: 1.25em;
+  box-shadow: 0 0 0.625em 0.625em #74e0f8;
+}
+
+#circle-anahata:before {
+  font-family: "GFS Didot";
+  font-size: 1.375em;
+  content: "4";
+  width: 1.25em;
+  border-radius: calc(50%);
+  height: 1.25em;
+  display: inline-flex;
+  color: #000000;
+  background: #b6fd57;
+  justify-content: center;
+  margin-right: 1.25em;
+  box-shadow: 0 0 0.625em 0.625em #b6fd57;
+}
+
+#circle-manipura:before {
+  font-family: "GFS Didot";
+  font-size: 1.375em;
+  content: "3";
+  width: 1.25em;
+  border-radius: calc(50%);
+  height: 1.25em;
+  display: inline-flex;
+  color: #000000;
+  background: #fbe49d;
+  justify-content: center;
+  margin-right: 1.25em;
+  box-shadow: 0 0 0.625em 0.625em #fbe49d;
+}
+
+#circle-svadhisthana:before {
+  font-family: "GFS Didot";
+  font-size: 1.375em;
+  content: "2";
+  width: 1.25em;
+  border-radius: calc(50%);
+  height: 1.25em;
+  display: inline-flex;
+  color: #f5f5f5;
+  background: #ed7233;
+  justify-content: center;
+  margin-right: 1.25em;
+  box-shadow: 0 0 0.625em 0.625em #ed7233;
+}
+
+#circle-muladhara:before {
+  font-family: "GFS Didot";
+  font-size: 1.375em;
+  content: "1";
+  width: 1.25em;
+  border-radius: calc(50%);
+  height: 1.25em;
+  display: inline-flex;
+  color: #f5f5f5;
+  background: #ea4631;
+  justify-content: center;
+  margin-right: 1.25em;
+  box-shadow: 0 0 0.625em 0.625em #ea4631;
+}
+
+.chakra-td {
+  padding: 0.3125em;
+  text-align: center;
+  width: 12.5em;
+}
+
+.chakra-tr {
+  font-family: "Inter";
+  text-align-last: center;
+  padding: 0.3125em;
+  text-align: center;
+  background-color: #050215;
+}
+
+.chakra-name__bottom {
+  box-shadow: none;
+}
+
+.chakra-name__radius-left {
+  background-color: #827d78;
+  border-top-left-radius: 10px;
+}
+
+.chakra-name__radius-right {
+  background-color: #827d78;
+  border-top-right-radius: 10px;
+}
+
+.chakra-name__radius-left-bottom {
+  background-color: #050215;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.chakra-name__radius-right-bottom {
+  background-color: #050215;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.chakra-name__radius-right-bottom2 {
+  border-bottom-right-radius: 10px;
+}
+
+.chakra-table-header> :nth-child(2),
+.chakra-table-header> :nth-child(3) {
+  background-color: #827d78;
+}
+
+.chakra-table-header {
+  font-family: "Inter";
+  text-transform: uppercase;
+}
+
+.personal-calculator {
+  display: flex;
+  justify-content: center;
+  font-size: 3.375em;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.output-personal-date,
+.output2 {
+  text-align: center;
+  font-size: 1.25em;
+  font-family: Inter;
+}
+
+.gray {
+  color: #827d78;
+}
+
+.smoky-white {
+  color: #f9f9f8;
+}
+
+.smoky-white2 {
+  color: #fff8db;
+}
+
+#decode-matrix-btn {
+  max-width: 20em;
+  margin-top: 6.5em;
+  margin-bottom: 6.5em;
+}
+
+/* Matrix's styles */
+
+.matrix-container,
+.compatibility-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pento {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.display-none {
+  display: none;
+}
+
+#matrix {
+  float: none;
+  margin: 10% 0 10% 0;
+  width: 100%;
+  max-width: 800px;
+  min-width: 300px;
+}
+
+:not(svg) {
+  transform-origin: 0px 0px;
+}
+
+svg:not(:root) {
+  overflow-clip-margin: content-box;
+  overflow: visible;
+}
+
+.cls-4 {
+  stroke-dasharray: none;
+}
+
+.cls-3,
+.cls-4 {
+  stroke-width: 1.5px;
+}
+
+.cls-18 {
+  stroke-width: 1.5px;
+}
+
+.cls-5,
+.cls-7 {
+  stroke-width: 1px;
+}
+
+.cls-18 {
+  stroke-dasharray: 0, 25, 10, 50, 10, 50, 10, 25;
+}
+
+.cls-18,
+.cls-3,
+.cls-4 {
+  stroke-miterlimit: 10;
+  stroke: white;
+  fill: none;
+}
+
+.cls-5,
+.cls-6 {
+  stroke: #b653f7;
+  fill: #b653f7;
+}
+
+.cls-7,
+.cls-8 {
+  stroke: #ea4631;
+  fill: #ea4631;
+}
+
+.cls-10 {
+  fill: #b653f7;
+}
+
+.cls-13 {
+  fill: #3d54f5;
+}
+
+.cls-15 {
+  fill: #74e0f8;
+}
+
+.cls-19 {
+  fill: #ea4631;
+}
+
+.cls-22 {
+  fill: #ed7233;
+}
+
+.cls-25 {
+  fill: #fbe49d;
+}
+
+.cls-26 {
+  fill: #b6fd57;
+}
+
+.cls-24,
+.cls-21,
+.cls-23,
+.cls-53 {
+  fill: #fffcf0;
+}
+
+.matrix-value-point {
+  text-anchor: middle;
+  alignment-baseline: middle;
+}
+
+.cls-28 {
+  font-size: 12.9501px;
+  line-height: 11px;
+}
+
+.cls-29 {
+  font-size: 12.0251px;
+  line-height: 10px;
+}
+
+.cls-33 {
+  font-size: 12px;
+  line-height: 81.9%;
+}
+
+.cls-43 {
+  font-size: 5.76471px;
+  line-height: 81.9%;
+}
+
+.cls-44 {
+  font-size: 11.5587px;
+  line-height: 81.9%;
+}
+
+.cls-54,
+.cls-55,
+.cls-56 {
+  font-size: 29.7851px;
+  line-height: 37px;
+}
+
+.cls-57,
+.cls-58 {
+  font-size: 17.2946px;
+  line-height: 22px;
+}
+
+.cls-59,
+.cls-60 {
+  font-size: 21.1378px;
+  line-height: 26px;
+}
+
+.cls-61 {
+  font-size: 6px;
+  line-height: 81.9%;
+}
+
+.cls-28,
+.cls-29,
+.cls-33,
+.cls-43,
+.cls-44,
+.cls-54,
+.cls-57,
+.cls-59,
+.cls-61 {
+  fill: #f5f5f5;
+}
+
+.cls-55,
+.cls-58,
+.cls-60 {
+  fill: #000000;
+}
+
+.cls-56 {
+  fill: #d2b154;
+}
+
+/* health-map and purposes table styles */
+
+tbody {
+  font-family: "Inter";
+  font-size: 1.25em;
+}
+
+tr {
+  text-align: center;
+}
+
+.font-size16 {
+  font-family: "Inter";
+  font-size: 1em;
+}
+
+.table-padding {
+  padding-bottom: 1.25em;
+}
+
+.table-padding-top {
+  padding-top: 1.25em;
+}
+
+.font-size18 {
+  font-family: "Inter";
+  font-size: 1.125em;
+}
+
+#purposes {
+  margin-bottom: 1.25em;
+}
+
+#blom {
+  padding-right: 6.25em;
+}
+
+#blom2 {
+  padding-right: 6.25em;
+}
+
+h3 {
+  text-transform: uppercase;
+}
+
+#chakra_table {
+  position: relative;
+}
+
+.base-circle {
+  border: 1px solid white;
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  display: inline-block;
+  text-align: center;
+  line-height: 2.5em;
+}
+
+.compatibility-table__adaptiv {
+  display: none;
+}
+
+/* media desktop version */
+
+@media screen and (min-width: 1920px) {
+  body {
+    font-size: 19.2px;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  main {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  body {
+    font-size: 4.79px;
+  }
+
+  .birthday-container__inputs-wrapper {
+    width: 100%;
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+      "input1"
+      "input2"
+      "button";
+    grid-gap: 10px;
+    justify-items: center;
+  }
+
+  .birthday-container__inputs-wrapper-comp {
+    width: 100%;
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr 1fr 0.2fr 1fr 1fr;
+    grid-template-areas:
+      "label-partner1"
+      "input1"
+      "label-partner2"
+      "input2"
+      "button";
+    grid-row-gap: 10px;
+    justify-items: center;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  #date,
+  #name,
+  #date_person1,
+  #date_person2 {
+    width: 138px;
+    height: 38px;
+    padding: 5px 30px;
+    font-size: 16px;
+  }
+
+  #get_the_answer,
+  #createChart {
+    width: 200px;
+    height: 50px;
+    padding: 5px;
+    font-size: 16px;
+  }
+
+  .birthday-container {
+    margin-bottom: 0;
+  }
+
+  .birthday-container p,
+  .output-personal-date,
+  .output2 {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .personal-calculator p {
+    margin: 0;
+  }
+
+  tbody {
+    font-size: 10px;
+  }
+
+  .chakra-table {
+    max-width: 100%;
+  }
+
+  .errorOutput,
+  .wrongDate {
+    font-size: 16px;
+  }
+
+  #decode-matrix-btn {
+    margin: 2.5em 0 2.5em 0;
+    width: 300px;
+    height: 70px;
+    padding: 5px;
+    font-size: 16px;
+  }
+
+  .cls-54,
+  .cls-55,
+  .cls-56 {
+    font-size: 32px;
+  }
+
+  .cls-57,
+  .cls-58 {
+    font-size: 20px;
+  }
+
+  .cls-59,
+  .cls-60 {
+    font-size: 22px;
+  }
+
+  #blom {
+    padding-right: 2.625em;
+  }
+
+  #blom2 {
+    padding-right: 2.625em;
+  }
+
+  .compatibility-table {
+    display: none;
+  }
+
+  .compatibility-table__adaptiv {
+    display: block;
+  }
+}
