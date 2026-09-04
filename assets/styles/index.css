@@ -1,11 +1,37 @@
+:root {
+  /* ── Core palette ── */
+  --color-bg: #050215;
+  --color-gold: #fff8db;
+  --color-white: #ffffff;
+  --color-off-white: #f5f5f5;
+  --color-off-white-2: #f9f9f8;
+  --color-cream: #fffcf0;
+  --color-black: #000000;
+  --color-gray: #827d78;
+  --color-gold-muted: #d2b154;
+
+  /* ── Chakra accent colors (Crown → Root) ── */
+  --chakra-sahasrara: #b653f7;
+  --chakra-ajna: #3d54f5;
+  --chakra-vishuddha: #74e0f8;
+  --chakra-anahata: #b6fd57;
+  --chakra-manipura: #fbe49d;
+  --chakra-svadhisthana: #ed7233;
+  --chakra-muladhara: #ea4631;
+
+  /* ── Typography ── */
+  --font-heading: "Cormorant Garamond", serif;
+  --font-body: "Nunito", sans-serif;
+}
+
 input[type="date"] {
   -webkit-appearance: none;
 }
 
 body {
-  background-color: #050215;
-  font-family: "GFS Didot";
-  color: #ffffff;
+  background-color: var(--color-bg);
+  font-family: var(--font-heading);
+  color: var(--color-white);
   font-style: normal;
   font-size: 1vw;
 }
@@ -38,7 +64,7 @@ li {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: "Inter";
+  font-family: var(--font-body);
   margin-bottom: 5em;
 }
 
@@ -112,11 +138,11 @@ label {
 
 input {
   padding: 1.25em 3.25em 1.25em 3.25em;
-  font-family: "Inter";
+  font-family: var(--font-body);
   font-size: 1.25em;
-  background-color: #050215;
-  color: #fff8db;
-  border: 1px #fff8db solid;
+  background-color: var(--color-bg);
+  color: var(--color-gold);
+  border: 1px var(--color-gold) solid;
   border-radius: 0.5em;
 }
 
@@ -126,22 +152,22 @@ input {
 
 button {
   padding: 1.25em 2em 1.25em 2em;
-  background-color: #fff8db;
-  font-family: "Inter";
+  background-color: var(--color-gold);
+  font-family: var(--font-body);
   font-size: 1.25em;
   line-height: 125%;
   text-transform: uppercase;
   border-radius: 0.5em;
-  border: 1px #fff8db solid;
+  border: 1px var(--color-gold) solid;
   z-index: 1;
   cursor: pointer;
-  color: #050215;
+  color: var(--color-bg);
 }
 
 button:hover {
-  color: #fff8db;
-  background-color: #050215;
-  border: 1px #fff8db solid;
+  color: var(--color-gold);
+  background-color: var(--color-bg);
+  border: 1px var(--color-gold) solid;
 }
 
 #get_the_answer,
@@ -166,18 +192,18 @@ button:hover {
 
 .chakra-table td:first-child,
 .chakra-table th:first-child {
-  border-left: 1px solid white;
+  border-left: 1px solid var(--color-white);
 }
 
 .chakra-table tr:first-child th,
 .chakra-table tr:last-child td {
-  border-top: 1px solid white;
+  border-top: 1px solid var(--color-white);
 }
 
 .chakra-table td,
 .chakra-table th {
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
+  border-right: 1px solid var(--color-white);
+  border-bottom: 1px solid var(--color-white);
 }
 
 .chakra-name__bottom td:first {
@@ -207,107 +233,25 @@ button:hover {
   align-items: baseline;
 }
 
-#circle-sahasrara:before {
-  font-family: "GFS Didot";
+/*
+  Single rule replaces the 7 near-duplicate #circle-*:before blocks.
+  Each chakra element sets --chakra-color, --chakra-text (optional) and
+  a data-chakra-number attribute inline; see index.html.
+*/
+.chakra-circle:before {
+  font-family: var(--font-heading);
   font-size: 1.375em;
-  content: "7";
+  content: attr(data-chakra-number);
   width: 1.25em;
-  border-radius: calc(50%);
+  border-radius: 50%;
   height: 1.25em;
   display: inline-flex;
-  background: #b653f7;
+  align-items: center;
+  color: var(--chakra-text, var(--color-white));
+  background: var(--chakra-color);
   justify-content: center;
   margin-right: 1.25em;
-  box-shadow: 0 0 0.625em 0.625em #b653f7;
-}
-
-#circle-ajna:before {
-  font-family: "GFS Didot";
-  font-size: 1.375em;
-  content: "6";
-  width: 1.25em;
-  border-radius: calc(50%);
-  height: 1.25em;
-  display: inline-flex;
-  background: #3d54f5;
-  justify-content: center;
-  margin-right: 1.25em;
-  box-shadow: 0 0 0.625em 0.625em #3d54f5;
-}
-
-#circle-vishuddha:before {
-  font-family: "GFS Didot";
-  font-size: 1.375em;
-  content: "5";
-  width: 1.25em;
-  border-radius: calc(50%);
-  height: 1.25em;
-  display: inline-flex;
-  color: #000000;
-  background: #74e0f8;
-  justify-content: center;
-  margin-right: 1.25em;
-  box-shadow: 0 0 0.625em 0.625em #74e0f8;
-}
-
-#circle-anahata:before {
-  font-family: "GFS Didot";
-  font-size: 1.375em;
-  content: "4";
-  width: 1.25em;
-  border-radius: calc(50%);
-  height: 1.25em;
-  display: inline-flex;
-  color: #000000;
-  background: #b6fd57;
-  justify-content: center;
-  margin-right: 1.25em;
-  box-shadow: 0 0 0.625em 0.625em #b6fd57;
-}
-
-#circle-manipura:before {
-  font-family: "GFS Didot";
-  font-size: 1.375em;
-  content: "3";
-  width: 1.25em;
-  border-radius: calc(50%);
-  height: 1.25em;
-  display: inline-flex;
-  color: #000000;
-  background: #fbe49d;
-  justify-content: center;
-  margin-right: 1.25em;
-  box-shadow: 0 0 0.625em 0.625em #fbe49d;
-}
-
-#circle-svadhisthana:before {
-  font-family: "GFS Didot";
-  font-size: 1.375em;
-  content: "2";
-  width: 1.25em;
-  border-radius: calc(50%);
-  height: 1.25em;
-  display: inline-flex;
-  color: #f5f5f5;
-  background: #ed7233;
-  justify-content: center;
-  margin-right: 1.25em;
-  box-shadow: 0 0 0.625em 0.625em #ed7233;
-}
-
-#circle-muladhara:before {
-  font-family: "GFS Didot";
-  font-size: 1.375em;
-  content: "1";
-  width: 1.25em;
-  border-radius: calc(50%);
-  height: 1.25em;
-  display: inline-flex;
-  color: #f5f5f5;
-  background: #ea4631;
-  justify-content: center;
-  margin-right: 1.25em;
-  box-shadow: 0 0 0.625em 0.625em #ea4631;
+  box-shadow: 0 0 0.625em 0.625em var(--chakra-color);
 }
 
 .chakra-td {
@@ -317,11 +261,11 @@ button:hover {
 }
 
 .chakra-tr {
-  font-family: "Inter";
+  font-family: var(--font-body);
   text-align-last: center;
   padding: 0.3125em;
   text-align: center;
-  background-color: #050215;
+  background-color: var(--color-bg);
 }
 
 .chakra-name__bottom {
@@ -329,23 +273,23 @@ button:hover {
 }
 
 .chakra-name__radius-left {
-  background-color: #827d78;
+  background-color: var(--color-gray);
   border-top-left-radius: 10px;
 }
 
 .chakra-name__radius-right {
-  background-color: #827d78;
+  background-color: var(--color-gray);
   border-top-right-radius: 10px;
 }
 
 .chakra-name__radius-left-bottom {
-  background-color: #050215;
+  background-color: var(--color-bg);
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
 }
 
 .chakra-name__radius-right-bottom {
-  background-color: #050215;
+  background-color: var(--color-bg);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -356,11 +300,11 @@ button:hover {
 
 .chakra-table-header> :nth-child(2),
 .chakra-table-header> :nth-child(3) {
-  background-color: #827d78;
+  background-color: var(--color-gray);
 }
 
 .chakra-table-header {
-  font-family: "Inter";
+  font-family: var(--font-body);
   text-transform: uppercase;
 }
 
@@ -378,19 +322,19 @@ button:hover {
 .output2 {
   text-align: center;
   font-size: 1.25em;
-  font-family: Inter;
+  font-family: var(--font-body);
 }
 
 .gray {
-  color: #827d78;
+  color: var(--color-gray);
 }
 
 .smoky-white {
-  color: #f9f9f8;
+  color: var(--color-off-white-2);
 }
 
 .smoky-white2 {
-  color: #fff8db;
+  color: var(--color-gold);
 }
 
 #decode-matrix-btn {
@@ -438,81 +382,81 @@ svg:not(:root) {
   overflow: visible;
 }
 
-.cls-4 {
+.frame-octagon {
   stroke-dasharray: none;
 }
 
-.cls-3,
-.cls-4 {
+.frame-square,
+.frame-octagon {
   stroke-width: 1.5px;
 }
 
-.cls-18 {
+.frame-dash-connector {
   stroke-width: 1.5px;
 }
 
-.cls-5,
-.cls-7 {
+.genline-sahasrara,
+.genline-muladhara {
   stroke-width: 1px;
 }
 
-.cls-18 {
+.frame-dash-connector {
   stroke-dasharray: 0, 25, 10, 50, 10, 50, 10, 25;
 }
 
-.cls-18,
-.cls-3,
-.cls-4 {
+.frame-dash-connector,
+.frame-square,
+.frame-octagon {
   stroke-miterlimit: 10;
-  stroke: white;
+  stroke: var(--color-white);
   fill: none;
 }
 
-.cls-5,
-.cls-6 {
-  stroke: #b653f7;
-  fill: #b653f7;
+.genline-sahasrara,
+.genline-sahasrara-arrow {
+  stroke: var(--chakra-sahasrara);
+  fill: var(--chakra-sahasrara);
 }
 
-.cls-7,
-.cls-8 {
-  stroke: #ea4631;
-  fill: #ea4631;
+.genline-muladhara,
+.genline-muladhara-arrow {
+  stroke: var(--chakra-muladhara);
+  fill: var(--chakra-muladhara);
 }
 
-.cls-10 {
-  fill: #b653f7;
+.point-fill-sahasrara {
+  fill: var(--chakra-sahasrara);
 }
 
-.cls-13 {
-  fill: #3d54f5;
+.point-fill-ajna {
+  fill: var(--chakra-ajna);
 }
 
-.cls-15 {
-  fill: #74e0f8;
+.point-fill-vishuddha {
+  fill: var(--chakra-vishuddha);
 }
 
-.cls-19 {
-  fill: #ea4631;
+.point-fill-muladhara {
+  fill: var(--chakra-muladhara);
 }
 
-.cls-22 {
-  fill: #ed7233;
+.point-fill-svadhisthana {
+  fill: var(--chakra-svadhisthana);
 }
 
-.cls-25 {
-  fill: #fbe49d;
+.point-fill-manipura {
+  fill: var(--chakra-manipura);
 }
 
-.cls-26 {
-  fill: #b6fd57;
+.point-fill-anahata {
+  fill: var(--chakra-anahata);
 }
 
-.cls-24,
-.cls-21,
-.cls-23,
-.cls-53 {
-  fill: #fffcf0;
+.point-fill-neutral-big,
+.point-fill-neutral-small,
+.point-fill-neutral-medium,
+.icon-heart {
+  fill: var(--color-cream);
 }
 
 .matrix-value-point {
@@ -520,81 +464,81 @@ svg:not(:root) {
   alignment-baseline: middle;
 }
 
-.cls-28 {
+.age-band-label {
   font-size: 12.9501px;
   line-height: 11px;
 }
 
-.cls-29 {
+.age-band-label-minor {
   font-size: 12.0251px;
   line-height: 10px;
 }
 
-.cls-33 {
+.year-tick-value {
   font-size: 12px;
   line-height: 81.9%;
 }
 
-.cls-43 {
+.age-band-label-minor-sub {
   font-size: 5.76471px;
   line-height: 81.9%;
 }
 
-.cls-44 {
+.genline-caption {
   font-size: 11.5587px;
   line-height: 81.9%;
 }
 
-.cls-54,
-.cls-55,
-.cls-56 {
+.point-text-big-light,
+.point-text-big-dark,
+.icon-dollar-text {
   font-size: 29.7851px;
   line-height: 37px;
 }
 
-.cls-57,
-.cls-58 {
+.point-text-small-light,
+.point-text-small-dark {
   font-size: 17.2946px;
   line-height: 22px;
 }
 
-.cls-59,
-.cls-60 {
+.point-text-medium-light,
+.point-text-medium-dark {
   font-size: 21.1378px;
   line-height: 26px;
 }
 
-.cls-61 {
+.year-fraction-label {
   font-size: 6px;
   line-height: 81.9%;
 }
 
-.cls-28,
-.cls-29,
-.cls-33,
-.cls-43,
-.cls-44,
-.cls-54,
-.cls-57,
-.cls-59,
-.cls-61 {
-  fill: #f5f5f5;
+.age-band-label,
+.age-band-label-minor,
+.year-tick-value,
+.age-band-label-minor-sub,
+.genline-caption,
+.point-text-big-light,
+.point-text-small-light,
+.point-text-medium-light,
+.year-fraction-label {
+  fill: var(--color-off-white);
 }
 
-.cls-55,
-.cls-58,
-.cls-60 {
-  fill: #000000;
+.point-text-big-dark,
+.point-text-small-dark,
+.point-text-medium-dark {
+  fill: var(--color-black);
 }
 
-.cls-56 {
-  fill: #d2b154;
+.icon-dollar-text {
+  fill: var(--color-gold-muted);
 }
 
 /* health-map and purposes table styles */
 
 tbody {
-  font-family: "Inter";
+  font-family: var(--font-body);
   font-size: 1.25em;
 }
 
@@ -603,7 +547,7 @@ tr {
 }
 
 .font-size16 {
-  font-family: "Inter";
+  font-family: var(--font-body);
   font-size: 1em;
 }
 
@@ -616,7 +560,7 @@ tr {
 }
 
 .font-size18 {
-  font-family: "Inter";
+  font-family: var(--font-body);
   font-size: 1.125em;
 }
 
@@ -641,7 +585,7 @@ h3 {
 }
 
 .base-circle {
-  border: 1px solid white;
+  border: 1px solid var(--color-white);
   border-radius: 50%;
   width: 2.5em;
   height: 2.5em;
@@ -650,8 +594,70 @@ h3 {
   line-height: 2.5em;
 }
 
-.compatibility-table__adaptiv {
-  display: none;
+/* ── Compatibility summary (Relationship / Union / Harmony) ──
+   Single markup, reflowed by CSS Grid — replaces the old pair of
+   near-duplicate desktop/mobile tables. */
+
+.compat-grid {
+  width: 100%;
+  max-width: 60em;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: "relationship union harmony";
+  gap: 2.5em 1.5em;
+  padding: 1.25em 0;
+}
+
+.compat-column--relationship {
+  grid-area: relationship;
+}
+
+.compat-column--union {
+  grid-area: union;
+}
+
+.compat-column--harmony {
+  grid-area: harmony;
+}
+
+.compat-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.compat-column__desc {
+  margin: 0 0 1.25em 0;
+}
+
+.compat-pair-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+}
+
+.compat-pair-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.compat-pair-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.compat-pair-label {
+  min-width: 2.75em;
+  text-align: left;
+}
+
+.compat-bracket {
+  flex-shrink: 0;
+  line-height: 0;
 }
 
 /* media desktop version */
@@ -762,19 +768,19 @@ h3 {
     font-size: 16px;
   }
 
-  .cls-54,
-  .cls-55,
-  .cls-56 {
+  .point-text-big-light,
+  .point-text-big-dark,
+  .icon-dollar-text {
     font-size: 32px;
   }
 
-  .cls-57,
-  .cls-58 {
+  .point-text-small-light,
+  .point-text-small-dark {
     font-size: 20px;
   }
 
-  .cls-59,
-  .cls-60 {
+  .point-text-medium-light,
+  .point-text-medium-dark {
     font-size: 22px;
   }
 
@@ -786,11 +792,15 @@ h3 {
     padding-right: 2.625em;
   }
 
-  .compatibility-table {
-    display: none;
+  .compat-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "relationship union"
+      "harmony harmony";
+    gap: 2em 0.75em;
   }
 
-  .compatibility-table__adaptiv {
-    display: block;
+  .compat-pair-label {
+    min-width: 2.25em;
   }
 }

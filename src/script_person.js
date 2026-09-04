@@ -4,13 +4,10 @@ const dateInput = document.getElementById('date');
 const nameInput = document.getElementById('name');
 const container = document.querySelector('.matrix-container');
 const btnAnswer = document.getElementById('get_the_answer');
+const errorOutput = document.querySelector('.errorOutput');
+const outputDate = document.querySelector('.output-personal-date');
 
-const today = new Date();
-
-// disallow future dates and dates older than 120 years
-document.getElementById('date').setAttribute('max', today.toLocaleDateString('en-CA'));
-const ancientDate = new Date(today.getFullYear() - 120, today.getMonth(), today.getDay());
-document.getElementById('date').setAttribute('min', ancientDate.toLocaleDateString('en-CA'));
+setDateBounds(dateInput);
 
 dateInput.value = '';
 nameInput.value = '';
@@ -24,18 +21,13 @@ function titleCase(str) {
 btnAnswer.addEventListener('click', (evt) => {
   evt.preventDefault();
 
-  const date = new Date(document.getElementById('date').value);
-  const calculationDate = document.getElementById('date').value;
-  const name = document.getElementById('name').value;
-  const errorOutput = document.querySelector('.errorOutput');
-  const output = document.querySelector('.output-personal-date');
+  const calculationDate = dateInput.value;
+  const date = new Date(calculationDate);
+  const name = nameInput.value;
   const response = validate(date, name);
 
-  output.innerHTML = '';
+  outputDate.innerHTML = '';
   errorOutput.innerHTML = '';
-
-  const splitDate = calculationDate.split('-');
-  const fullDate = `${splitDate[2]}.${splitDate[1]}.${splitDate[0]}`;
 
   if (response !== true) {
     errorOutput.innerHTML = response;
@@ -43,7 +35,10 @@ btnAnswer.addEventListener('click', (evt) => {
     return;
   }
 
-  output.innerHTML = `${titleCase(name)} <span class="gray">Date of Birth:</span> ${fullDate}`;
+  const splitDate = calculationDate.split('-');
+  const fullDate = `${splitDate[2]}.${splitDate[1]}.${splitDate[0]}`;
+
+  outputDate.innerHTML = `${titleCase(name)} <span class="gray">Date of Birth:</span> ${fullDate}`;
 
   container.classList.remove('display-none');
   container.scrollIntoView({ behavior: 'smooth' });
@@ -65,6 +60,7 @@ btnAnswer.addEventListener('click', (evt) => {
 
 function validate(date, name) {
   let errorMessage = '';
+  const today = new Date();
   const nameValid = new RegExp('^[а-яё\\- ]*[a-z\\- ]*$', 'i');
 
   if (name === '' || isNaN(date.getFullYear())) {
@@ -75,7 +71,7 @@ function validate(date, name) {
     errorMessage += `<p>Date can't be in the future.</p>`;
   }
 
-  if (today.getFullYear() - date.getFullYear() > 120) {
+  if (today.getFullYear() - date.getFullYear() > MAX_AGE_YEARS) {
     errorMessage += `<p>Date can't be so far in the past.</p>`;
   }
 

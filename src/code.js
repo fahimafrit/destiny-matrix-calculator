@@ -1,5 +1,18 @@
 'use strict';
 
+// ─── DATE INPUT BOUNDS ──────────────────────────────────────────────────────
+// Shared by script_person.js and inputs_compatibility.js so the min/max
+// logic — and the "how old is too old" rule — lives in exactly one place.
+
+const MAX_AGE_YEARS = 120;
+
+function setDateBounds(inputEl) {
+  const today = new Date();
+  const oldestAllowed = new Date(today.getFullYear() - MAX_AGE_YEARS, today.getMonth(), today.getDate());
+  inputEl.setAttribute('max', today.toLocaleDateString('en-CA'));
+  inputEl.setAttribute('min', oldestAllowed.toLocaleDateString('en-CA'));
+}
+
 // ─── RENDER HELPERS ─────────────────────────────────────────────────────────
 // Generic: writes each key/value pair in `values` into the element with a
 // matching id. Used for points, year-band points, and purposes alike —

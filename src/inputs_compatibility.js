@@ -4,15 +4,11 @@ const inputFirstDate = document.getElementById('date_person1');
 const inputSecondDate = document.getElementById('date_person2');
 const btnChart = document.getElementById('createChart');
 const compatibilityContainer = document.querySelector('.compatibility-container');
+const wrongDateOutput = document.querySelector('.wrongDate');
+const output2 = document.querySelector('.output2');
 
-const today = new Date();
-
-// disallow future dates and dates older than 120 years, for both partners
-document.getElementById('date_person1').setAttribute('max', today.toLocaleDateString('en-CA'));
-document.getElementById('date_person2').setAttribute('max', today.toLocaleDateString('en-CA'));
-const ancientDate = new Date(today.getFullYear() - 120, today.getMonth(), today.getDay());
-document.getElementById('date_person1').setAttribute('min', ancientDate.toLocaleDateString('en-CA'));
-document.getElementById('date_person2').setAttribute('min', ancientDate.toLocaleDateString('en-CA'));
+setDateBounds(inputFirstDate);
+setDateBounds(inputSecondDate);
 
 let person = {};
 let secondPerson = {};
@@ -71,10 +67,9 @@ function buildCompatibilityValues() {
   return values;
 }
 
-// Writes computed values directly by id — no scanning/matching against the DOM.
-// Both the desktop and mobile-adaptive tables reuse the same span ids where
-// they appear more than once (see compatibility.html), so getElementById
-// naturally only reaches the first one; duplicate spans use distinct ids.
+// Writes computed values directly by id. The compatibility summary is a
+// single responsive grid (see compatibility.html) with one span per value,
+// so each id now appears exactly once in the DOM.
 function outputCompatibilityMatrixValues(values) {
   document.querySelectorAll('[id^="compatibility"]').forEach((el) => {
     if (Object.prototype.hasOwnProperty.call(values, el.id)) {
@@ -86,19 +81,17 @@ function outputCompatibilityMatrixValues(values) {
 btnChart.addEventListener('click', (evt) => {
   evt.preventDefault();
 
-  const date1 = new Date(document.getElementById('date_person1').value);
-  const date2 = new Date(document.getElementById('date_person2').value);
-  const calculationDateFirst = document.getElementById('date_person1').value;
-  const calculationDateSecond = document.getElementById('date_person2').value;
-  const wrongDate = document.querySelector('.wrongDate');
-  const output2 = document.querySelector('.output2');
+  const calculationDateFirst = inputFirstDate.value;
+  const calculationDateSecond = inputSecondDate.value;
+  const date1 = new Date(calculationDateFirst);
+  const date2 = new Date(calculationDateSecond);
   const response = validateDates(date1, date2);
 
   output2.innerHTML = '';
-  wrongDate.innerHTML = '';
+  wrongDateOutput.innerHTML = '';
 
   if (response !== true) {
-    wrongDate.innerHTML = response;
+    wrongDateOutput.innerHTML = response;
     compatibilityContainer.classList.add('display-none');
     return;
   }
@@ -128,12 +121,13 @@ btnChart.addEventListener('click', (evt) => {
 
 function validateDates(date1, date2) {
   let errorMessage = '';
+  const today = new Date();
 
   if (date1 > today || date2 > today) {
     errorMessage += `<p>Dates can't be in the future.</p>`;
   }
 
-  if (today.getFullYear() - date1.getFullYear() > 120 || today.getFullYear() - date2.getFullYear() > 120) {
+  if (today.getFullYear() - date1.getFullYear() > MAX_AGE_YEARS || today.getFullYear() - date2.getFullYear() > MAX_AGE_YEARS) {
     errorMessage += `<p>Dates can't be so far in the past.</p>`;
   }
 
