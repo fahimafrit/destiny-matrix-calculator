@@ -18,7 +18,7 @@
   border: 1px solid rgba(212, 175, 55, 0.35);
   border-radius: 12px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(26, 16, 64, 0.03);
   backdrop-filter: blur(4px);
 }
 
@@ -33,7 +33,7 @@
   border: none;
   border-radius: 0;
   cursor: pointer;
-  color: #fff8db;
+  color: #1a1040;
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.35em;
   font-weight: 600;
@@ -44,8 +44,8 @@
 }
 
 .interp-accordion-header:hover {
-  background: rgba(212, 175, 55, 0.08);
-  color: #fff8db;
+  background: rgba(180, 138, 20, 0.08);
+  color: #1a1040;
   border: none;
 }
 
@@ -57,7 +57,7 @@
 .interp-chevron {
   font-size: 1.4em;
   line-height: 1;
-  color: #d4af37;
+  color: #b48a14;
   transition: transform 0.3s ease;
   display: inline-block;
   margin-left: 0.5em;
@@ -104,7 +104,7 @@
   font-family: 'Nunito', sans-serif;
   font-size: 0.82em;
   font-weight: 600;
-  color: rgba(249, 249, 248, 0.5);
+  color: rgba(26, 16, 64, 0.5);
   letter-spacing: 0.02em;
   transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
   white-space: nowrap;
@@ -113,16 +113,16 @@
 }
 
 .interp-tab:hover {
-  color: #fff8db;
-  background: rgba(212, 175, 55, 0.08);
+  color: #1a1040;
+  background: rgba(180, 138, 20, 0.08);
   border-color: transparent;
 }
 
 .interp-tab--active {
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.1);
-  border-color: rgba(212, 175, 55, 0.3);
-  border-bottom-color: #050215; /* merges with panel background */
+  color: #b48a14;
+  background: rgba(180, 138, 20, 0.1);
+  border-color: rgba(180, 138, 20, 0.3);
+  border-bottom-color: #ffffff; /* merges with panel background */
 }
 
 /* inner tabs are slightly smaller */
@@ -150,7 +150,7 @@
   font-family: 'Nunito', sans-serif;
   font-size: 1em;
   line-height: 1.8;
-  color: rgba(249, 249, 248, 0.88);
+  color: rgba(26, 16, 64, 0.88);
   margin: 0;
 }
 

@@ -1,6 +1,7 @@
 :root {
   /* ── Core palette ── */
-  --color-bg: #050215;
+  --color-bg: #ffffff;
+  --color-navy: #1a1040;
   --color-gold: #fff8db;
   --color-white: #ffffff;
   --color-off-white: #f5f5f5;
@@ -9,6 +10,8 @@
   --color-black: #000000;
   --color-gray: #827d78;
   --color-gold-muted: #d2b154;
+  --color-lavender: #e8e4f0;
+  --color-lavender-light: #f5f3fa;
 
   /* ── Chakra accent colors (Crown → Root) ── */
   --chakra-sahasrara: #b653f7;
@@ -31,7 +34,7 @@ input[type="date"] {
 body {
   background-color: var(--color-bg);
   font-family: var(--font-heading);
-  color: var(--color-white);
+  color: var(--color-navy);
   font-style: normal;
   font-size: 1vw;
 }
@@ -140,9 +143,9 @@ input {
   padding: 1.25em 3.25em 1.25em 3.25em;
   font-family: var(--font-body);
   font-size: 1.25em;
-  background-color: var(--color-bg);
-  color: var(--color-gold);
-  border: 1px var(--color-gold) solid;
+  background-color: var(--color-white);
+  color: var(--color-navy);
+  border: 1px var(--color-navy) solid;
   border-radius: 0.5em;
 }
 
@@ -152,22 +155,22 @@ input {
 
 button {
   padding: 1.25em 2em 1.25em 2em;
-  background-color: var(--color-gold);
+  background-color: var(--color-navy);
   font-family: var(--font-body);
   font-size: 1.25em;
   line-height: 125%;
   text-transform: uppercase;
   border-radius: 0.5em;
-  border: 1px var(--color-gold) solid;
+  border: 1px var(--color-navy) solid;
   z-index: 1;
   cursor: pointer;
-  color: var(--color-bg);
+  color: var(--color-white);
 }
 
 button:hover {
-  color: var(--color-gold);
-  background-color: var(--color-bg);
-  border: 1px var(--color-gold) solid;
+  color: var(--color-navy);
+  background-color: var(--color-white);
+  border: 1px var(--color-navy) solid;
 }
 
 #get_the_answer,
@@ -192,18 +195,18 @@ button:hover {
 
 .chakra-table td:first-child,
 .chakra-table th:first-child {
-  border-left: 1px solid var(--color-white);
+  border-left: 1px solid var(--color-navy);
 }
 
 .chakra-table tr:first-child th,
 .chakra-table tr:last-child td {
-  border-top: 1px solid var(--color-white);
+  border-top: 1px solid var(--color-navy);
 }
 
 .chakra-table td,
 .chakra-table th {
-  border-right: 1px solid var(--color-white);
-  border-bottom: 1px solid var(--color-white);
+  border-right: 1px solid var(--color-navy);
+  border-bottom: 1px solid var(--color-navy);
 }
 
 .chakra-name__bottom td:first {
@@ -251,7 +254,7 @@ button:hover {
   background: var(--chakra-color);
   justify-content: center;
   margin-right: 1.25em;
-  box-shadow: 0 0 0.625em 0.625em var(--chakra-color);
+  box-shadow: 0 0 0.3em 0.2em var(--chakra-color);
 }
 
 .chakra-td {
@@ -265,7 +268,7 @@ button:hover {
   text-align-last: center;
   padding: 0.3125em;
   text-align: center;
-  background-color: var(--color-bg);
+  background-color: var(--color-white);
 }
 
 .chakra-name__bottom {
@@ -273,23 +276,23 @@ button:hover {
 }
 
 .chakra-name__radius-left {
-  background-color: var(--color-gray);
+  background-color: var(--color-lavender);
   border-top-left-radius: 10px;
 }
 
 .chakra-name__radius-right {
-  background-color: var(--color-gray);
+  background-color: var(--color-lavender);
   border-top-right-radius: 10px;
 }
 
 .chakra-name__radius-left-bottom {
-  background-color: var(--color-bg);
+  background-color: var(--color-white);
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
 }
 
 .chakra-name__radius-right-bottom {
-  background-color: var(--color-bg);
+  background-color: var(--color-white);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -300,7 +303,7 @@ button:hover {
 
 .chakra-table-header> :nth-child(2),
 .chakra-table-header> :nth-child(3) {
-  background-color: var(--color-gray);
+  background-color: var(--color-lavender-light);
 }
 
 .chakra-table-header {
@@ -326,15 +329,15 @@ button:hover {
 }
 
 .gray {
-  color: var(--color-gray);
+  color: #5c5670;
 }
 
 .smoky-white {
-  color: var(--color-off-white-2);
+  color: #3a3350;
 }
 
 .smoky-white2 {
-  color: var(--color-gold);
+  color: var(--color-gold-muted);
 }
 
 #decode-matrix-btn {
@@ -408,7 +411,7 @@ svg:not(:root) {
 .frame-square,
 .frame-octagon {
   stroke-miterlimit: 10;
-  stroke: var(--color-white);
+  stroke: var(--color-navy);
   fill: none;
 }
 
@@ -454,9 +457,12 @@ svg:not(:root) {
 
 .point-fill-neutral-big,
 .point-fill-neutral-small,
-.point-fill-neutral-medium,
+.point-fill-neutral-medium {
+  fill: var(--color-navy);
+}
+
 .icon-heart {
-  fill: var(--color-cream);
+  fill: #e0263f;
 }
 
 .matrix-value-point {
@@ -518,21 +524,38 @@ svg:not(:root) {
 .year-tick-value,
 .age-band-label-minor-sub,
 .genline-caption,
+.year-fraction-label {
+  fill: var(--color-navy);
+}
+
 .point-text-big-light,
 .point-text-small-light,
-.point-text-medium-light,
-.year-fraction-label {
-  fill: var(--color-off-white);
+.point-text-medium-light {
+  fill: var(--color-white);
 }
 
 .point-text-big-dark,
 .point-text-small-dark,
 .point-text-medium-dark {
-  fill: var(--color-black);
+  fill: var(--color-white);
+}
+
+/* Light-fill neutral circles keep dark text for contrast */
+#epoint,
+#spoint,
+#tpoint,
+#wpoint,
+#xpoint,
+#compatibilityEpoint,
+#compatibilitySpoint,
+#compatibilityTpoint,
+#compatibilityWpoint,
+#compatibilityXpoint {
+  fill: var(--color-navy) !important;
 }
 
 .icon-dollar-text {
-  fill: var(--color-gold-muted);
+  fill: #2f9e44;
 }
 
 /* health-map and purposes table styles */
@@ -585,7 +608,7 @@ h3 {
 }
 
 .base-circle {
-  border: 1px solid var(--color-white);
+  border: 1px solid var(--color-navy);
   border-radius: 50%;
   width: 2.5em;
   height: 2.5em;
