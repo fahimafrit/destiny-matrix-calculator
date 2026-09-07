@@ -83,7 +83,6 @@ let compatibilityData = null;
 // treated the same way so the base formula itself can be confirmed correct.
 //
 // The Relationship / Union / Harmony summary (`summary` below) is ported
-// from the old compatibility.html + inputs_compatibility.js, but rebuilt on
 // top of the current system: it combines values straight from
 // compatibilityData.points (already pair-summed + reduced) instead of
 // re-deriving its own pair sums, and every combining step uses
