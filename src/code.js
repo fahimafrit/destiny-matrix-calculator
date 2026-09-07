@@ -13,6 +13,22 @@ function setDateBounds(inputEl) {
   inputEl.setAttribute('min', oldestAllowed.toLocaleDateString('en-CA'));
 }
 
+// ─── CALENDAR VALIDITY ──────────────────────────────────────────────────────
+// `new Date(year, month - 1, day)` silently rolls over invalid dates instead
+// of rejecting them — e.g. new Date(2020, 1, 30) becomes 1 March 2020, not
+// an error, so checking isNaN(date.getFullYear()) never catches it. This
+// compares the constructed Date's components back against what was typed;
+// if JS rolled the date over, they won't match and the date is invalid.
+// Shared by script_person.js and compatibility.js so both use one rule.
+function isValidCalendarDate(parsed, date) {
+  if (!parsed || isNaN(date.getTime())) return false;
+  return (
+    date.getFullYear() === parsed.year &&
+    date.getMonth() === parsed.month - 1 &&
+    date.getDate() === parsed.day
+  );
+}
+
 // ─── RENDER HELPERS ─────────────────────────────────────────────────────────
 // Generic: writes each key/value pair in `values` into the element with a
 // matching id. Used for points, year-band points, and purposes alike —
@@ -45,11 +61,18 @@ function ChartHeart(chartHeart) {
 }
 
 // ─── NUMBER REDUCTION ───────────────────────────────────────────────────────
+// Repeats digit-sum reduction until the result is 22 or less. A single pass
+// happens to be enough for every value this engine currently produces, but
+// looping (matching reduceCompatibilityNumber's rule in compatibility.js)
+// makes that a guarantee instead of an assumption that quietly breaks the
+// moment an upstream value is larger than expected.
 
 const reduceNumber = (number) => {
   let num = number;
-  if (number > 22) {
-    num = (number % 10) + Math.floor(number / 10);
+  while (num > 22) {
+    num = String(num)
+      .split('')
+      .reduce((sum, digit) => sum + Number(digit), 0);
   }
   return num;
 };

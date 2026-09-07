@@ -139,9 +139,9 @@ function maskDateInput(evt) {
   let digits = input.value.replace(/\D/g, '').slice(0, 8);
 
   let formatted = digits;
-  if (digits.length > 4) {
+  if (digits.length >= 4) {
     formatted = `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;
-  } else if (digits.length > 2) {
+  } else if (digits.length >= 2) {
     formatted = `${digits.slice(0, 2)}/${digits.slice(2)}`;
   }
 
@@ -162,14 +162,15 @@ function parseDdMmYyyy(value) {
 function validateOne(date, parsed, label) {
   let errorMessage = '';
   const today = new Date();
+  const dateIsValid = isValidCalendarDate(parsed, date);
 
-  if (!parsed || isNaN(date.getFullYear())) {
+  if (!dateIsValid) {
     errorMessage += `<p>${label}: date is not valid. Use DD/MM/YYYY.</p>`;
   }
-  if (parsed && (date > today)) {
+  if (dateIsValid && (date > today)) {
     errorMessage += `<p>${label}: date can't be in the future.</p>`;
   }
-  if (parsed && (today.getFullYear() - date.getFullYear() > MAX_AGE_YEARS)) {
+  if (dateIsValid && (today.getFullYear() - date.getFullYear() > MAX_AGE_YEARS)) {
     errorMessage += `<p>${label}: date can't be so far in the past.</p>`;
   }
 

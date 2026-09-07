@@ -27,9 +27,9 @@ function maskDateInput(evt) {
   let digits = input.value.replace(/\D/g, '').slice(0, 8);
 
   let formatted = digits;
-  if (digits.length > 4) {
+  if (digits.length >= 4) {
     formatted = `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;
-  } else if (digits.length > 2) {
+  } else if (digits.length >= 2) {
     formatted = `${digits.slice(0, 2)}/${digits.slice(2)}`;
   }
 
@@ -59,7 +59,8 @@ btnAnswer.addEventListener('click', (evt) => {
 function runCalculation(calculationDate, name, { updateUrl = true } = {}) {
   const parsed = parseDdMmYyyy(calculationDate);
   const date = parsed ? new Date(parsed.year, parsed.month - 1, parsed.day) : new Date(NaN);
-  const response = validate(date, name, parsed);
+  const dateIsValid = isValidCalendarDate(parsed, date);
+  const response = validate(date, name, parsed, dateIsValid);
 
   outputDate.innerHTML = '';
   errorOutput.innerHTML = '';
@@ -100,20 +101,20 @@ function runCalculation(calculationDate, name, { updateUrl = true } = {}) {
   clearInputs(dateInput, nameInput);
 }
 
-function validate(date, name, parsed) {
+function validate(date, name, parsed, dateIsValid) {
   let errorMessage = '';
   const today = new Date();
   const nameValid = new RegExp('^[а-яё\\- ]*[a-z\\- ]*$', 'i');
 
-  if (name === '' || !parsed || isNaN(date.getFullYear())) {
+  if (name === '' || !parsed || !dateIsValid) {
     errorMessage += `<p>Date is not valid or one of the fields is empty. Use DD/MM/YYYY.</p>`;
   }
 
-  if (parsed && (date > today)) {
+  if (parsed && dateIsValid && (date > today)) {
     errorMessage += `<p>Date can't be in the future.</p>`;
   }
 
-  if (parsed && (today.getFullYear() - date.getFullYear() > MAX_AGE_YEARS)) {
+  if (parsed && dateIsValid && (today.getFullYear() - date.getFullYear() > MAX_AGE_YEARS)) {
     errorMessage += `<p>Date can't be so far in the past.</p>`;
   }
 
