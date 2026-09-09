@@ -21,7 +21,7 @@ const FILES = {
   'section-11': { file: 'purpose-general.json',   type: 'A', title: 'Your General Purpose',      getKey: (p) => p.purposes.generalpurpose },
   'section-14': { file: 'year.json',              type: 'A', title: 'Your Current Year Energy',  getKey: (p) => p.points.cpoint },
   'section-16': { file: 'purpose-planetary.json', type: 'A', title: 'Your Legacy',               getKey: (p) => p.purposes.planetarypurpose },
-  'section-03': { file: 'karmic-tail.json',       type: 'B', title: "Your Soul's Journey",       getKey: (p) => `${p.points.jpoint}-${p.points.kpoint}-${p.points.lpoint}` },
+  'section-03': { file: 'karmic-tail.json',       type: 'B', title: "Your Soul's Journey",       getKey: (p) => `${p.points.jpoint}-${p.points.rpoint}-${p.points.dpoint}` },
   'section-13': { file: 'programs.json',          type: 'B', title: 'Your Karmic Programs',      getKey: (p) => `${p.points.npoint}-${p.points.lpoint}-${p.points.mpoint}` },
   'section-12': { file: 'point-o-p.json',         type: '12', title: 'Your Family Blueprint' },
   'section-15': { file: 'chakras.json',           type: 'C',  title: 'Your Body and Energy Map' },
