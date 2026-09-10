@@ -4,13 +4,9 @@
 // Shared by script_person.js and inputs_compatibility.js so the min/max
 // logic — and the "how old is too old" rule — lives in exactly one place.
 
-const MAX_AGE_YEARS = 120;
-
 function setDateBounds(inputEl) {
   const today = new Date();
-  const oldestAllowed = new Date(today.getFullYear() - MAX_AGE_YEARS, today.getMonth(), today.getDate());
   inputEl.setAttribute('max', today.toLocaleDateString('en-CA'));
-  inputEl.setAttribute('min', oldestAllowed.toLocaleDateString('en-CA'));
 }
 
 // ─── CALENDAR VALIDITY ──────────────────────────────────────────────────────

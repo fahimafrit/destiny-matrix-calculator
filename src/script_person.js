@@ -114,10 +114,6 @@ function validate(date, name, parsed, dateIsValid) {
     errorMessage += `<p>Date can't be in the future.</p>`;
   }
 
-  if (parsed && dateIsValid && (today.getFullYear() - date.getFullYear() > MAX_AGE_YEARS)) {
-    errorMessage += `<p>Date can't be so far in the past.</p>`;
-  }
-
   if (!nameValid.test(name)) {
     errorMessage += `<p>Name format is incorrect: allowed characters are letters, dash and space. Example: Anna, Anna-Maria, Anna Maria.</p>`;
   }
