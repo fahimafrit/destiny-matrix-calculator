@@ -18,6 +18,15 @@ const btnAnswer = document.getElementById('get_the_answer');
 const errorOutput = document.querySelector('.errorOutput');
 const outputDate = document.querySelector('.output-personal-date');
 const tabButtons = document.querySelectorAll('.cv2-tab');
+const compatibilityExcludedPoints = document.getElementById('compatibility-excluded-points');
+
+// These points are meaningful on each person's own chart, but are not part
+// of the combined compatibility chart.
+const COMPATIBILITY_EXCLUDED_POINT_KEYS = new Set([
+  'upoint', 'vpoint',
+  'f1point', 'f2point', 'g1point', 'g2point',
+  'h1point', 'h2point', 'i1point', 'i2point',
+]);
 
 // Which dataset feeds the octogram right now. Switching this never
 // recalculates anything — all three datasets are already sitting in memory
@@ -43,6 +52,7 @@ function clearAllPoints() {
 
 function renderDataset(data) {
   clearAllPoints();
+  compatibilityExcludedPoints.classList.toggle('display-none', activeTab === 'compatibility');
   if (!data) return;
 
   if (data.points) renderValues(data.points);
@@ -73,14 +83,10 @@ let person2Data = null;
 let compatibilityData = null;
 
 // ─── COMPATIBILITY CALCULATION ──────────────────────────────────────────────
-// TEMPORARY / INCOMPLETE ON PURPOSE: the per-point loop below applies the
-// raw-sum + reduceCompatibilityNumber() formula uniformly to every key in
-// `points`. In reality, some point positions will eventually need to be
-// left empty (not every position in the individual chart has a
-// compatibility meaning), and others will need exception rules instead of
-// this generic formula. That differentiation is NOT implemented yet —
-// flagged here to be addressed in a later step. For now every point is
-// treated the same way so the base formula itself can be confirmed correct.
+// A compatibility point is the pairwise sum of the corresponding personal
+// points, reduced with the compatibility rule. Points listed in
+// COMPATIBILITY_EXCLUDED_POINT_KEYS intentionally have no compatibility
+// meaning, so they are omitted from the result altogether.
 //
 // The Relationship / Union / Harmony summary (`summary` below) is ported
 // top of the current system: it combines values straight from
@@ -92,6 +98,8 @@ function calculateCompatibility(p1Points, p2Points) {
   const compatibilityPoints = {};
 
   for (const key of Object.keys(p1Points)) {
+    if (COMPATIBILITY_EXCLUDED_POINT_KEYS.has(key)) continue;
+
     const raw = p1Points[key] + p2Points[key];
     compatibilityPoints[key] = reduceCompatibilityNumber(raw);
   }
@@ -252,7 +260,6 @@ function runCalculation({ updateUrl = true } = {}) {
   });
   renderDataset(getDataForTab(activeTab));
   renderCompatibilitySummary(compatibilityData);
-  updateCompatGridVisibility(activeTab);
 
   // Confirm both objects independently in the console for now.
   console.log('person1Data', person1Data);
