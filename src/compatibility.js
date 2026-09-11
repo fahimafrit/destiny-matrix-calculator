@@ -83,28 +83,58 @@ let person2Data = null;
 let compatibilityData = null;
 
 // ─── COMPATIBILITY CALCULATION ──────────────────────────────────────────────
-// Each compatibility point is the reduced sum of that same point on the two
-// individual matrices. This includes the center: compatibility E is
-// reduceCompatibilityNumber(person1 E + person2 E), not a new E derived from
-// compatibility A/B/C/D. The auxiliary points above are omitted.
+// Two different rules, by point:
 //
-// The Relationship / Union / Harmony summary (`summary` below) is ported
-// top of the current system: it combines values straight from
-// compatibilityData.points (already pair-summed + reduced) instead of
-// re-deriving its own pair sums, and every combining step uses
-// reduceCompatibilityNumber — not reduceNumber — to stay consistent with
-// this page's compatibility-chart rule.
+// 1. DIRECT (12 points): a, b, c, d, e, f, g, h, i, j, s, t are each the
+//    reduceCompatibilityNumber-reduced sum of that same point on the two
+//    individual matrices. These are NOT re-derived from each other here —
+//    each is its own independent pair-sum, exactly like a/b/c always were.
+//
+// 2. DERIVED (8 points): k, l, m, n, o, p, q, r are NOT pair-summed at all.
+//    They're built from the 12 direct compat points above, using the exact
+//    same formulas calculatePoints() uses for an individual chart, reduced
+//    with plain reduceNumber (matching "the formula used in personal
+//    matrix for them"):
+//      n = c + e        l = j + n        m = l + n        k = j + l
+//      q = n + c        r = j + d        o = a + s        p = b + t
+//
+// u, v, w, x and the f1/f2/g1/g2/h1/h2/i1/i2 cluster are intentionally left
+// uncomputed for the compatibility chart (they stay undefined and are
+// never written into compatibilityPoints) — COMPATIBILITY_EXCLUDED_POINT_KEYS
+// still documents that these never render on this chart either way.
+const COMPATIBILITY_DIRECT_POINT_KEYS = [
+  'apoint', 'bpoint', 'cpoint', 'dpoint', 'epoint', 'fpoint',
+  'gpoint', 'hpoint', 'ipoint', 'jpoint', 'spoint', 'tpoint',
+];
+
 function calculateCompatibility(p1Points, p2Points) {
   const compatibilityPoints = {};
 
-  for (const key of Object.keys(p1Points)) {
-    if (COMPATIBILITY_EXCLUDED_POINT_KEYS.has(key)) continue;
-
+  for (const key of COMPATIBILITY_DIRECT_POINT_KEYS) {
     compatibilityPoints[key] = reduceCompatibilityNumber(p1Points[key] + p2Points[key]);
   }
 
-  const sky = reduceCompatibilityNumber(compatibilityPoints.bpoint + compatibilityPoints.dpoint);
-  const earth = reduceCompatibilityNumber(compatibilityPoints.apoint + compatibilityPoints.cpoint);
+  const { apoint, bpoint, cpoint, dpoint, epoint, jpoint, spoint, tpoint } = compatibilityPoints;
+
+  const npoint = reduceNumber(cpoint + epoint);
+  const lpoint = reduceNumber(jpoint + npoint);
+  const mpoint = reduceNumber(lpoint + npoint);
+  const kpoint = reduceNumber(jpoint + lpoint);
+  const qpoint = reduceNumber(npoint + cpoint);
+  const rpoint = reduceNumber(jpoint + dpoint);
+  const opoint = reduceNumber(apoint + spoint);
+  const ppoint = reduceNumber(bpoint + tpoint);
+
+  Object.assign(compatibilityPoints, {
+    npoint, lpoint, mpoint, kpoint, qpoint, rpoint, opoint, ppoint,
+  });
+
+  // Sky/Earth/Male/Female/Relationship/Union/Harmony summary — combined the
+  // same way as before, straight from the (now direct-pair-summed) compat
+  // points, using reduceCompatibilityNumber to stay consistent with this
+  // page's own reduction rule rather than the individual-chart one.
+  const sky = reduceCompatibilityNumber(bpoint + dpoint);
+  const earth = reduceCompatibilityNumber(apoint + cpoint);
   const male = reduceCompatibilityNumber(compatibilityPoints.fpoint + compatibilityPoints.ipoint);
   const female = reduceCompatibilityNumber(compatibilityPoints.gpoint + compatibilityPoints.hpoint);
   const relationship = reduceCompatibilityNumber(sky + earth);
