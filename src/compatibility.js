@@ -170,9 +170,6 @@ function validateOne(date, parsed, label) {
   if (dateIsValid && (date > today)) {
     errorMessage += `<p>${label}: date can't be in the future.</p>`;
   }
-  if (dateIsValid && (today.getFullYear() - date.getFullYear() > MAX_AGE_YEARS)) {
-    errorMessage += `<p>${label}: date can't be so far in the past.</p>`;
-  }
 
   return errorMessage;
 }
