@@ -20,8 +20,8 @@ const outputDate = document.querySelector('.output-personal-date');
 const tabButtons = document.querySelectorAll('.cv2-tab');
 const compatibilityExcludedPoints = document.getElementById('compatibility-excluded-points');
 
-// These points are meaningful on each person's own chart, but are not part
-// of the combined compatibility chart.
+// These points remain available on each individual chart, but are not part
+// of the compatibility chart.
 const COMPATIBILITY_EXCLUDED_POINT_KEYS = new Set([
   'upoint', 'vpoint',
   'f1point', 'f2point', 'g1point', 'g2point',
@@ -83,10 +83,10 @@ let person2Data = null;
 let compatibilityData = null;
 
 // ─── COMPATIBILITY CALCULATION ──────────────────────────────────────────────
-// A compatibility point is the pairwise sum of the corresponding personal
-// points, reduced with the compatibility rule. Points listed in
-// COMPATIBILITY_EXCLUDED_POINT_KEYS intentionally have no compatibility
-// meaning, so they are omitted from the result altogether.
+// Each compatibility point is the reduced sum of that same point on the two
+// individual matrices. This includes the center: compatibility E is
+// reduceCompatibilityNumber(person1 E + person2 E), not a new E derived from
+// compatibility A/B/C/D. The auxiliary points above are omitted.
 //
 // The Relationship / Union / Harmony summary (`summary` below) is ported
 // top of the current system: it combines values straight from
@@ -100,8 +100,7 @@ function calculateCompatibility(p1Points, p2Points) {
   for (const key of Object.keys(p1Points)) {
     if (COMPATIBILITY_EXCLUDED_POINT_KEYS.has(key)) continue;
 
-    const raw = p1Points[key] + p2Points[key];
-    compatibilityPoints[key] = reduceCompatibilityNumber(raw);
+    compatibilityPoints[key] = reduceCompatibilityNumber(p1Points[key] + p2Points[key]);
   }
 
   const sky = reduceCompatibilityNumber(compatibilityPoints.bpoint + compatibilityPoints.dpoint);
@@ -183,11 +182,9 @@ function validateOne(date, parsed, label) {
 }
 
 // ─── COMPATIBILITY REDUCTION ────────────────────────────────────────────────
-// Deliberately separate from reduceNumber() in code.js — that one is the
-// individual-chart rule (reduces above 22, stops at master numbers 11/22/33
-// via calculatePoints' own logic). This one is the compatibility-chart rule:
-// keep raw sums of 22 or less as-is, otherwise digit-sum repeatedly until
-// the result is 22 or less. Do not merge these two functions.
+// Kept separate from reduceNumber() in code.js so the compatibility rule can
+// evolve independently. At present both preserve raw values of 22 or less
+// and repeatedly digit-sum only values above 22.
 function reduceCompatibilityNumber(raw) {
   let num = raw;
   while (num > 22) {
