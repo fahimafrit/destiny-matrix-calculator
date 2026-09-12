@@ -300,11 +300,6 @@ function runCalculation({ updateUrl = true } = {}) {
   renderDataset(getDataForTab(activeTab));
   renderCompatibilitySummary(compatibilityData);
 
-  // Confirm both objects independently in the console for now.
-  console.log('person1Data', person1Data);
-  console.log('person2Data', person2Data);
-  console.log('compatibilityData', compatibilityData);
-
   if (updateUrl) {
     const url = new URL(window.location.href);
     url.searchParams.set('dob1', dob1.replace(/\//g, '-'));

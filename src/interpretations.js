@@ -45,9 +45,13 @@ const data = {};
 async function safeFetch(path) {
   try {
     const res = await fetch(path);
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.warn(`interpretations.js: "${path}" returned ${res.status} — that section will not render.`);
+      return null;
+    }
     return await res.json();
-  } catch {
+  } catch (err) {
+    console.warn(`interpretations.js: failed to fetch or parse "${path}" — that section will not render.`, err);
     return null;
   }
 }
@@ -137,27 +141,37 @@ function buildAccordion(sectionId, title, subsections) {
 
 function renderTypeA(sectionId, cfg, person) {
   const json = data[sectionId];
-  if (!json) return;
-  const entry = json.find(e => e.arcana === cfg.getKey(person));
-  if (!entry) return;
+  if (!json) return; // safeFetch already warned about the load failure
+  const key = cfg.getKey(person);
+  const entry = json.find(e => e.arcana === key);
+  if (!entry) {
+    console.warn(`interpretations.js: ${sectionId} (${cfg.file}) has no entry for arcana "${key}".`);
+    return;
+  }
   buildAccordion(sectionId, cfg.title, entry.subsections);
 }
 
 function renderTypeB(sectionId, cfg, person) {
   const json = data[sectionId];
-  if (!json) return;
+  if (!json) return; // safeFetch already warned about the load failure
   const key = cfg.getKey(person);
   const entry = json.find(e => e.cluster === key);
-  if (!entry) return;
+  if (!entry) {
+    console.warn(`interpretations.js: ${sectionId} (${cfg.file}) has no entry for cluster key "${key}".`);
+    return;
+  }
   buildAccordion(sectionId, cfg.title, entry.subsections);
 }
 
 function renderSection12(person) {
   const json = data['section-12'];
-  if (!json) return;
+  if (!json) return; // safeFetch already warned about the load failure
   const oEntry = json.find(e => e.arcana === person.points.opoint);
   const pEntry = json.find(e => e.arcana === person.points.ppoint);
-  if (!oEntry && !pEntry) return;
+  if (!oEntry && !pEntry) {
+    console.warn(`interpretations.js: section-12 (point-o-p.json) has no entry for opoint "${person.points.opoint}" or ppoint "${person.points.ppoint}".`);
+    return;
+  }
 
   // Merge subsections from both entries into one accordion
   const subsections = [];
@@ -176,7 +190,8 @@ function renderSection12(person) {
 function renderChakras(person) {
   const container = document.getElementById('section-15');
   const json = data['section-15'];
-  if (!container || !json) return;
+  if (!container) return;
+  if (!json) return; // safeFetch already warned about the load failure
   container.innerHTML = '';
 
   const accordion = document.createElement('div');
@@ -211,7 +226,10 @@ function renderChakras(person) {
 
   Object.entries(CHAKRA_MAP).forEach(([key, map]) => {
     const chakraEntry = json.find(c => c.chakra === key);
-    if (!chakraEntry) return;
+    if (!chakraEntry) {
+      console.warn(`interpretations.js: chakras.json has no entry for chakra "${key}".`);
+      return;
+    }
 
     const physVal  = String(person.chartHeart[map.physics]);
     const engVal   = String(person.chartHeart[map.energy]);
@@ -219,7 +237,10 @@ function renderChakras(person) {
     const physText = chakraEntry.physics?.[physVal];
     const engText  = chakraEntry.energy?.[engVal];
     const emoText  = chakraEntry.emotions?.[emoVal];
-    if (!physText && !engText && !emoText) return;
+    if (!physText && !engText && !emoText) {
+      console.warn(`interpretations.js: chakra "${key}" has no matching text for physics="${physVal}", energy="${engVal}", emotions="${emoVal}".`);
+      return;
+    }
 
     const chakraTab = document.createElement('button');
     chakraTab.className = 'interp-tab' + (firstChakra ? ' interp-tab--active' : '');

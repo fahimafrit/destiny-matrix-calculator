@@ -554,24 +554,14 @@ svg:not(:root) {
   fill: var(--color-white);
 }
 
+/* "-dark" = dark (navy) text, for points placed on light-colored chakra
+   circles (manipura/vishuddha/anahata). Only apply this class to a point
+   whose circle is actually light-colored — everything else should use
+   "-light" (white text) instead, matching the circle's real background. */
 .point-text-big-dark,
 .point-text-small-dark,
 .point-text-medium-dark {
-  fill: var(--color-white);
-}
-
-/* Light-fill neutral circles keep dark text for contrast */
-#epoint,
-#spoint,
-#tpoint,
-#wpoint,
-#xpoint,
-#compatibilityEpoint,
-#compatibilitySpoint,
-#compatibilityTpoint,
-#compatibilityWpoint,
-#compatibilityXpoint {
-  fill: var(--color-navy) !important;
+  fill: var(--color-navy);
 }
 
 .icon-dollar-text {

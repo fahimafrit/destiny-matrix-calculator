@@ -451,19 +451,12 @@
   <p>Spiritual Tools — Destiny Matrix Suite</p>
 </footer>
 
+<script src="./src/code.js"></script>
 <script>
-  // ── CALCULATION (identical to code.js) ───────────────────────────────────
-
-  const reduceNumber = (n) => {
-    if (n > 22) return (n % 10) + Math.floor(n / 10);
-    return n;
-  };
-
-  const calculateYear = (year) => {
-    let y = 0, yr = year;
-    while (yr > 0) { y += yr % 10; yr = Math.floor(yr / 10); }
-    return reduceNumber(y);
-  };
+  // ── CALCULATION ───────────────────────────────────────────────────────────
+  // reduceNumber() and calculateYear() come from code.js (loaded above) —
+  // the same functions script_person.js and compatibility.js use — so this
+  // page can never drift from the canonical math.
 
   // Returns the three karmic tail numbers: top → mid → bottom
   function karmicTail(day, month, year) {
