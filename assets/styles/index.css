@@ -357,6 +357,26 @@ button:hover {
   align-items: center;
 }
 
+.matrix-chakra-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2em;
+}
+
+.matrix-chakra-row #chakra_table {
+  order: 1;
+  flex: 0 1 auto;
+}
+
+.matrix-chakra-row .pento {
+  order: 2;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .pento {
   width: 100%;
   height: 100%;
@@ -776,6 +796,16 @@ h3 {
 
   .chakra-table {
     max-width: 100%;
+  }
+
+  .matrix-chakra-row {
+    flex-direction: column;
+  }
+
+  .matrix-chakra-row #chakra_table,
+  .matrix-chakra-row .pento {
+    order: initial;
+    width: 100%;
   }
 
   .errorOutput,

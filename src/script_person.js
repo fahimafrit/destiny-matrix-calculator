@@ -73,7 +73,7 @@ function runCalculation(calculationDate, name, { updateUrl = true } = {}) {
 
   const fullDate = `${String(parsed.day).padStart(2, '0')}.${String(parsed.month).padStart(2, '0')}.${parsed.year}`;
 
-  outputDate.innerHTML = `${titleCase(name)} <span class="gray">Date of Birth:</span> ${fullDate}`;
+  outputDate.innerHTML = `${titleCase(name)}'s <span class="gray">Destiny Matrix Chart<br>Date of Birth:</span> ${fullDate}`;
 
   container.classList.remove('display-none');
   container.scrollIntoView({ behavior: 'smooth' });
