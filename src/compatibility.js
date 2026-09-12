@@ -132,12 +132,12 @@ function calculateCompatibility(p1Points, p2Points) {
   const tpoint = reduceNumber(bpoint + epoint);
   const opoint = reduceNumber(apoint + spoint);
   const ppoint = reduceNumber(bpoint + tpoint);
-  const wpoint = reduceNumber(spoint + epoint);
-  const xpoint = reduceNumber(tpoint + epoint);
-
+  // W and X are not standard octogram positions — the derivation chain ends
+  // at O and P. They remain in the individual chart engine (code.js) for the
+  // chakra system only and must not appear on the compatibility chart.
   Object.assign(compatibilityPoints, {
     jpoint, npoint, lpoint, mpoint, kpoint, qpoint, rpoint,
-    spoint, tpoint, opoint, ppoint, wpoint, xpoint,
+    spoint, tpoint, opoint, ppoint,
   });
 
   // Sky/Earth/Male/Female/Relationship/Union/Harmony summary — combined the
